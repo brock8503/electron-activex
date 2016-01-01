@@ -1,0 +1,7 @@
+LIBRARY FreeActiveX.DLL
+EXPORTS
+    DllMain = DllMain
+    DllCanUnloadNow = DllCanUnloadNow
+    DllGetClassObject = DllGetClassObject
+    DllRegisterServer = DllRegisterServer
+    DllUnregisterServer = DllUnregisterServer

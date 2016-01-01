@@ -1,0 +1,84 @@
+/*****************************************************************************
+ * axvlc.idl: ActiveX control for VLC
+ *****************************************************************************
+ * Copyright (C) 2006 the VideoLAN team
+ * Copyright (C) 2008 http://unick-soft.xost.ru
+ *
+ * Authors: Damien Fouilleul <Damien.Fouilleul@laposte.net>
+ *          Jean-Paul Saman <jpsaman _at_ m2x _dot_ nl>
+ * Modification: Oleg <soft_support@list.ru>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ *****************************************************************************/
+
+//comments terminated by [t] are by tonsofpcs, regarding the string review.  April 02, 2006. [t]
+
+import "ocidl.idl";
+
+[
+  uuid(96B4582E-74DF-49a0-B38E-4918E3DBBAB3),
+  version(1.0),
+  helpstring("Free ActiveX Plugin")
+]
+library FREE_AX
+{
+    interface IAXControl;
+    dispinterface DAXEvents;
+
+    importlib("stdole2.tlb");
+   
+    //const int DISPID_PlayEvent  = 100;
+    //const int DISPID_PauseEvent = 101;
+    //const int DISPID_StopEvent  = 102;
+
+    [
+      uuid(75B8DD70-9BB2-41ab-8A0D-FABFDA616C0B),
+      helpstring("Event interface ActiveX control")
+    ]
+    dispinterface DAXEvents
+    {
+        properties:
+        methods:
+    };
+
+    [
+      odl,
+      uuid(C9958507-AA21-46a8-95A6-F1FCA18971F1),
+      helpstring("ActiveX Control Example"),
+      dual,
+      oleautomation
+    ]
+    interface IAXControl : IDispatch
+    {
+        [propput, helpstring("Set test String")]
+        HRESULT TestString([in] BSTR str);
+
+        [propget, helpstring("Get test string")]
+        HRESULT TestString([out, retval] BSTR* str);
+
+        [helpstring("Show/hide ActiveX window")]
+        HRESULT SetVisible([in] VARIANT_BOOL isShow);
+    };
+
+    [
+      uuid(F773B261-8DD4-45cb-A861-F8AA2A7AEE4B),
+      helpstring("ActiveX Plug-in Example"),
+      control
+    ]
+    coclass AXPlugin
+    {
+        [default] interface IAXControl;
+    };
+};
