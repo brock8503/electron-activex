@@ -130,10 +130,15 @@ static void UnregisterProgID(REFCLSID rclsid, unsigned int version)
     TCHAR progId[sizeof(PROGID_STR)+16];
     _stprintf(progId, TEXT("%s.%u"), TEXT(PROGID_STR), version);
 
-    SHDeleteKey(HKEY_CLASSES_ROOT, progId);
+    HKEY hProjIDKey;
+    if( ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes"), 0, KEY_WRITE | KEY_WOW64_64KEY, &hProjIDKey) )
+    {
+        SHDeleteKey(hProjIDKey, progId);
+        RegCloseKey(hProjIDKey);
+    }
 
     HKEY hClsIDKey;
-    if( ERROR_SUCCESS == RegOpenKeyEx(HKEY_CLASSES_ROOT, TEXT("CLSID"), 0, KEY_WRITE, &hClsIDKey) )
+	if (ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes\\CLSID"), 0, KEY_WRITE | KEY_WOW64_64KEY, &hClsIDKey))
     {
         SHDeleteKey(hClsIDKey, (const WCHAR*) szCLSID);
         RegCloseKey(hClsIDKey);
@@ -162,7 +167,7 @@ STDAPI DllUnregisterServer(VOID)
         pcr->Release();
     }
 
-    SHDeleteKey(HKEY_CLASSES_ROOT, TEXT(PROGID_STR));
+    SHDeleteKey(HKEY_CURRENT_USER, TEXT(PROGID_STR));
 
     UnregisterProgID(CLSID_AXPlugin, 2);
 
@@ -178,12 +183,13 @@ static HRESULT RegisterClassID(HKEY hParent, REFCLSID rclsid, unsigned int versi
     _stprintf(description, TEXT("%s v%u"), TEXT(DESCRIPTION), version);
 
     HKEY hClassKey;
+	HKEY hClassBase;
     {
         OLECHAR szCLSID[GUID_STRLEN];
 
         StringFromGUID2(rclsid, szCLSID, GUID_STRLEN);
 
-        HKEY hProgKey = keyCreate(HKEY_CLASSES_ROOT, progId);
+        HKEY hProgKey = keyCreate(hParent, progId);
         if( NULL != hProgKey )
         {
             // default key value
@@ -195,24 +201,28 @@ static HRESULT RegisterClassID(HKEY hParent, REFCLSID rclsid, unsigned int versi
 
             RegCloseKey(hProgKey);
         }
-        if( isDefault )
-        {
-            hProgKey = keyCreate(HKEY_CLASSES_ROOT, TEXT(PROGID_STR));
-            if( NULL != hProgKey )
-            {
-                // default key value
-                keySetDef(hProgKey, description);
+		if (isDefault)
+		{
+			hProgKey = keyCreate(hParent, TEXT(PROGID_STR));
+			if (NULL != hProgKey)
+			{
+				// default key value
+				keySetDef(hProgKey, description);
 
-                keyClose(keySetDef(keyCreate(hProgKey, TEXT("CLSID")),
-                    szCLSID,
-                    sizeof(szCLSID)));
+				keyClose(keySetDef(keyCreate(hProgKey, TEXT("CLSID")),
+					szCLSID,
+					sizeof(szCLSID)));
 
-                keyClose(keySetDef(keyCreate(hProgKey, TEXT("CurVer")),
-                    progId));
-            }
-        }
-        hClassKey = keyCreate(hParent, (const TCHAR *) szCLSID);
-    }
+				keyClose(keySetDef(keyCreate(hProgKey, TEXT("CurVer")),
+					progId));
+			}
+		}
+
+		if( ERROR_SUCCESS != RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes\\CLSID"), 0, KEY_CREATE_SUB_KEY | KEY_WOW64_64KEY, &hClassBase) )
+			return SELFREG_E_CLASS;
+        hClassKey = keyCreate(hClassBase, (const TCHAR *) szCLSID);
+	}
+
     if( NULL != hClassKey )
     {
         // default key value
@@ -283,6 +293,9 @@ static HRESULT RegisterClassID(HKEY hParent, REFCLSID rclsid, unsigned int versi
 
 STDAPI DllRegisterServer(VOID)
 {
+	// Start debugging register
+	DebugBreak();
+
     DllUnregisterServer();
 
     TCHAR DllPath[MAX_PATH];
@@ -291,8 +304,8 @@ STDAPI DllRegisterServer(VOID)
         return E_UNEXPECTED;
 
     HKEY hBaseKey;
-
-    if( ERROR_SUCCESS != RegOpenKeyEx(HKEY_CLASSES_ROOT, TEXT("CLSID"), 0, KEY_CREATE_SUB_KEY, &hBaseKey) )
+	LSTATUS status = RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes"), 0, KEY_CREATE_SUB_KEY | KEY_WOW64_64KEY, &hBaseKey);
+    if( ERROR_SUCCESS != status)
         return SELFREG_E_CLASS;
 
     RegisterClassID(hBaseKey, CLSID_AXPlugin, 2, TRUE, DllPath, DllPathLen);

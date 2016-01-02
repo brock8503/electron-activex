@@ -26,3 +26,6 @@ orTest view with tstcon32
 
 #Build
 Only *debug* is building currently
+
+#Debug
+Using win32 `DebugBreak();` during post build you can break into the `DllRegisterServer`  
