@@ -131,14 +131,14 @@ static void UnregisterProgID(REFCLSID rclsid, unsigned int version)
     _stprintf(progId, TEXT("%s.%u"), TEXT(PROGID_STR), version);
 
     HKEY hProjIDKey;
-    if( ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes"), 0, KEY_WRITE | KEY_WOW64_64KEY, &hProjIDKey) )
+    if( ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes"), 0, KEY_WRITE | KEY_WOW64_32KEY, &hProjIDKey) )
     {
         SHDeleteKey(hProjIDKey, progId);
         RegCloseKey(hProjIDKey);
     }
 
     HKEY hClsIDKey;
-	if (ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes\\CLSID"), 0, KEY_WRITE | KEY_WOW64_64KEY, &hClsIDKey))
+	if (ERROR_SUCCESS == RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes\\CLSID"), 0, KEY_WRITE | KEY_WOW64_32KEY, &hClsIDKey))
     {
         SHDeleteKey(hClsIDKey, (const WCHAR*) szCLSID);
         RegCloseKey(hClsIDKey);
@@ -218,7 +218,7 @@ static HRESULT RegisterClassID(HKEY hParent, REFCLSID rclsid, unsigned int versi
 			}
 		}
 
-		if( ERROR_SUCCESS != RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes\\CLSID"), 0, KEY_CREATE_SUB_KEY | KEY_WOW64_64KEY, &hClassBase) )
+		if( ERROR_SUCCESS != RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes\\CLSID"), 0, KEY_CREATE_SUB_KEY | KEY_WOW64_32KEY, &hClassBase) )
 			return SELFREG_E_CLASS;
         hClassKey = keyCreate(hClassBase, (const TCHAR *) szCLSID);
 	}
@@ -294,7 +294,7 @@ static HRESULT RegisterClassID(HKEY hParent, REFCLSID rclsid, unsigned int versi
 STDAPI DllRegisterServer(VOID)
 {
 	// Start debugging register
-	DebugBreak();
+	// DebugBreak();
 
     DllUnregisterServer();
 
@@ -304,7 +304,7 @@ STDAPI DllRegisterServer(VOID)
         return E_UNEXPECTED;
 
     HKEY hBaseKey;
-	LSTATUS status = RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes"), 0, KEY_CREATE_SUB_KEY | KEY_WOW64_64KEY, &hBaseKey);
+	LSTATUS status = RegOpenKeyEx(HKEY_CURRENT_USER, TEXT("Software\\Classes"), 0, KEY_CREATE_SUB_KEY | KEY_WOW64_32KEY, &hBaseKey);
     if( ERROR_SUCCESS != status)
         return SELFREG_E_CLASS;
 
@@ -323,7 +323,9 @@ STDAPI DllRegisterServer(VOID)
             _CATID_SafeForInitializing,
             _CATID_SafeForScripting,
         };
-
+		// TODO: This call does NOT seem to work for per user registrations
+		// we should just manually add these keys by copying the hkcr 
+		// keys that are set with version v0.0.0 of this proj
         pcr->RegisterClassImplCategories(CLSID_AXPlugin,
                 sizeof(implCategories)/sizeof(CATID), implCategories);
         pcr->Release();
@@ -333,6 +335,7 @@ STDAPI DllRegisterServer(VOID)
     ITypeLib *typeLib;
 
     HRESULT result = LoadTypeLibEx((const WCHAR *) DllPath, REGKIND_REGISTER, &typeLib);
+	result = RegisterTypeLibForUser(typeLib, DllPath, NULL);
     if( SUCCEEDED(result) )
         typeLib->Release();
 
