@@ -186,6 +186,11 @@ public:
     //clear Edit box
     void clearEditBox();
 
+	/**
+	* Electron Control
+	*/
+	HWND initElectron();
+
     // controlling IUnknown interface
     LPUNKNOWN pUnkOuter;
 

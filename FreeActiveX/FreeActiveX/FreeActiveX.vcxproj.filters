@@ -31,6 +31,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Header Files\electron">
+      <UniqueIdentifier>{ac5382d1-1326-4f90-826c-ce30c75ac9fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\activex.def">
@@ -151,6 +154,123 @@
     </ClInclude>
     <ClInclude Include="src\helpers\viewobject.h">
       <Filter>Header Files\helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_access_token_store.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_app.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_auto_updater.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_global_shortcut.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_id_weak_map.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_menu.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_menu_mac.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_menu_views.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_native_image.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_power_monitor.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_protocol.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_screen.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_spell_check_client.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_tray.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_web_contents.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_web_frame.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_window.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_application.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_application_delegate.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_bindings.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_browser_client.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_browser_context.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_browser_main_parts.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_content_client.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_content_utility_client.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_javascript_dialog_manager.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_library_main.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_main.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_main_args.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_main_delegate.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_menu_controller.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_quota_permission_context.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_render_view_observer.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_renderer_client.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_speech_recognition_manager_delegate.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_url_request_job_factory.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_version.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\sandbox_types.h">
+      <Filter>Header Files\electron</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vendor\electron\headers\content_main.h">
+      <Filter>Header Files\electron</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

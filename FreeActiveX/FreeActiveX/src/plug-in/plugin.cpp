@@ -54,6 +54,12 @@
 #include <shlwapi.h>
 #include <wininet.h>
 
+#define USE_AURA
+#include "atom_main_delegate.h"
+#include "sandbox_types.h"
+#include "atom_main_args.h"
+#include "content_main.h"
+#include "content/public/app/startup_helper_win.h"
 
 using namespace std;
 
@@ -545,6 +551,20 @@ BOOL VLCPlugin::isInPlaceActive(void)
 {
     return (NULL != _inplacewnd);
 };
+
+HWND VLCPlugin::initElectron()
+{
+  sandbox::SandboxInterfaceInfo sandbox_info = {0};
+  content::InitializeSandboxInfo(&sandbox_info);
+  atom::AtomMainDelegate appDelegate;
+
+  content::ContentMainParams params(&appDelegate);
+  //params.instance = instance;
+  params.sandbox_info = &sandbox_info;
+  atom::AtomCommandLine::Init(NULL, NULL);
+  content::ContentMain(params);
+  return NULL;
+}
 
 HRESULT VLCPlugin::onActivateInPlace(LPMSG lpMesg, HWND hwndParent, LPCRECT lprcPosRect, LPCRECT lprcClipRect)
 {

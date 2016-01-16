@@ -70,12 +70,13 @@
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>C:\Development\FreeActiveX\vendor\electron\debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug without MFC|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -96,11 +97,11 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Development\FreeActiveX\vendor\electron\headers;./src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Development\FreeActiveX\vendor\electron\headers;./src/;C:\Development\electron\vendor\;C:\Development\electron\vendor\brightray\vendor\download\libchromiumcontent\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;WINDOWS;_WINDOWS;_USRDLL;FREEACTIVEX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -111,6 +112,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>C:\Development\FreeActiveX\vendor\electron\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>regsvr32 $(TargetPath)</Command>
@@ -124,7 +126,7 @@
       <InterfaceIdentifierFileName>axexample_i.c</InterfaceIdentifierFileName>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>./src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Development\FreeActiveX\vendor\electron\headers;./src/;C:\Development\electron\vendor\;C:\Development\electron\vendor\brightray\vendor\download\libchromiumcontent\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FREEACTIVEX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader />
@@ -132,7 +134,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shlwapi.lib;electron.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;electron.lib;electron_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <ModuleDefinitionFile>./src/activex.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -140,6 +142,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>C:\Development\FreeActiveX\vendor\electron\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy $(TargetPath) $(SolutionDir)\..\bin\
@@ -243,6 +246,45 @@ makecab.bat
     <ClCompile Include="src\resource\axexample_i.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\vendor\electron\headers\atom_access_token_store.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_app.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_auto_updater.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_global_shortcut.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_id_weak_map.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_menu.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_menu_mac.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_menu_views.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_native_image.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_power_monitor.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_protocol.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_screen.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_spell_check_client.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_tray.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_web_contents.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_web_frame.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_api_window.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_application.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_application_delegate.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_bindings.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_browser_client.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_browser_context.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_browser_main_parts.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_content_client.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_content_utility_client.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_javascript_dialog_manager.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_library_main.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_main.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_main_args.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_main_delegate.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_menu_controller.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_quota_permission_context.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_renderer_client.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_render_view_observer.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_speech_recognition_manager_delegate.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_url_request_job_factory.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\atom_version.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\content_main.h" />
+    <ClInclude Include="..\..\vendor\electron\headers\sandbox_types.h" />
     <ClInclude Include="setting.h" />
     <ClInclude Include="src\helpers\connectioncontainer.h" />
     <ClInclude Include="src\helpers\dataobject.h" />
