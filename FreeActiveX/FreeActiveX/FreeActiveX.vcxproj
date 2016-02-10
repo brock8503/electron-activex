@@ -107,7 +107,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;electron.lib;electron_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>./src/activex.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -134,7 +134,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shlwapi.lib;electron.lib;electron_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shlwapi.lib;advapi32.lib;iphlpapi.lib;sapi.lib;psapi.lib;shell32.lib;ws2_32.lib;accessibility.dll.lib;accessibility.lib;allocator_extension_thunks.lib;angle_common.lib;api_gen_util.lib;audioproc_debug_proto.lib;audio_coding_module.lib;audio_conference_mixer.lib;audio_decoder_interface.lib;audio_device.lib;audio_encoder_interface.lib;audio_processing.lib;audio_processing_sse2.lib;aura.dll.lib;aura.lib;aura_extra.dll.lib;aura_extra.lib;automation_client_lib.lib;ax_gen.lib;background_sync_proto.lib;base.dll.lib;base.lib;base_i18n.dll.lib;base_i18n.lib;base_prefs.dll.lib;base_prefs.lib;base_static.lib;bitrate_controller.lib;blink.lib;blink_common.dll.lib;blink_common.lib;blink_heap_asm_stubs.lib;blink_platform.dll.lib;blink_platform.lib;blink_web.dll.lib;blink_web.lib;boringssl.dll.lib;boringssl.lib;breakpad_handler.lib;breakpad_sender.lib;brightray.lib;brotli.lib;cache_storage_proto.lib;cares.lib;cast_base.lib;cast_logging_proto.lib;cast_net.lib;cast_sender.lib;cc.dll.lib;cc.lib;cc_blink.dll.lib;cc_blink.lib;cc_surfaces.dll.lib;cc_surfaces.lib;chromedriver_lib.lib;cityhash.lib;CNG.lib;command_buffer_client.lib;command_buffer_common.lib;command_buffer_service.lib;common_audio.lib;common_audio_sse2.lib;common_video.lib;compositor.dll.lib;compositor.lib;content.dll.lib;content_app_both.lib;content_browser.lib;content_child.lib;content_common.lib;content_common_mojo_bindings.lib;content_gpu.lib;content_plugin.lib;content_ppapi_plugin.lib;content_renderer.lib;content_startup_helper_win.lib;content_utility.lib;courgette_lib.lib;crcrypto.dll.lib;crcrypto.lib;desktop_capture.lib;desktop_capture_differ_sse2.lib;device_battery.dll.lib;device_battery.lib;device_battery_mojo_bindings.lib;device_bluetooth.dll.lib;device_bluetooth.lib;device_event_log_component.lib;device_usb.lib;device_vibration.dll.lib;device_vibration.lib;device_vibration_mojo_bindings.lib;disk_cache_proto.lib;display.lib;display_util.dll.lib;display_util.lib;dom4_keycode_converter.lib;dynamic_annotations.lib;electron.lib;electron_lib.lib;events.dll.lib;events.lib;events_base.dll.lib;events_base.lib;events_devices.dll.lib;events_ipc.dll.lib;events_ipc.lib;events_platform.dll.lib;events_platform.lib;expat.lib;ffmpegsumo.dll.lib;ffmpegsumo.lib;ffmpeg_yasm.lib;flac.lib;G711.lib;G722.lib;genperf_libs.lib;gestures_blink.lib;gesture_detection.dll.lib;gesture_detection.lib;gfx.dll.lib;gfx_geometry.dll.lib;gfx_ipc.dll.lib;gin.dll.lib;gles2_c_lib.dll.lib;gles2_implementation.dll.lib;gles2_utils.dll.lib;gl_in_process_context.dll.lib;gl_wrapper.dll.lib;gpu.dll.lib;gpu_blink.dll.lib;http_parser.lib;icui18n.dll.lib;icuuc.dll.lib;ipc.dll.lib;ipc_mojo.dll.lib;libEGL.dll.lib;libGLESv2.dll.lib;libpng.dll.lib;libuv.lib;libyuv.lib;media.dll.lib;media_blink.dll.lib;metro_viewer.dll.lib;mojo_common_lib.dll.lib;mojo_environment_chromium_impl.dll.lib;mojo_system_impl.dll.lib;native_theme.dll.lib;net.dll.lib;net_with_v8.dll.lib;node.dll.lib;openssl.lib;pdf.dll.lib;ppapi_host.dll.lib;ppapi_proxy.dll.lib;ppapi_shared.dll.lib;printing.dll.lib;protobuf_lite.dll.lib;sandbox.lib;shared_memory_support.dll.lib;shell_dialogs.dll.lib;skia.dll.lib;snapshot.dll.lib;sql.dll.lib;storage.dll.lib;storage_common.dll.lib;surface.dll.lib;translator.dll.lib;ui_base.dll.lib;ui_base_ime.dll.lib;ui_touch_selection.dll.lib;url_lib.dll.lib;v8.dll.lib;views.dll.lib;webkit_gpu.dll.lib;webview.dll.lib;web_dialogs.dll.lib;win_window.dll.lib;wm.dll.lib;wtf.dll.lib;wtf_unittest_helpers.dll.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <ModuleDefinitionFile>./src/activex.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -142,14 +142,15 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Development\FreeActiveX\vendor\electron\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Development\FreeActiveX\vendor\electron\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(TargetPath) $(SolutionDir)\..\bin\
-cd $(SolutionDir)\..\bin\
-makecab.bat
+      <Command>copy $(TargetPath) $(SolutionDir)\..\vendor\electron\debug\
 </Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cmd /c "$(SolutionDir)..\vendor\electron\debug\update.bat"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug without MFC|Win32'">
     <Midl>

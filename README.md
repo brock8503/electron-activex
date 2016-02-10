@@ -27,14 +27,42 @@ orTest view with tstcon32
 #Build
 Only *debug* is building currently
 
+#Clean build
+./vendor/depot_tools/ninja -t clean
+
+
 #Debug
 Using win32 `DebugBreak();` during post build you can break into the `DllRegisterServer`
+
+#What I know
+* `atom_browser_main_parts.cc` is the main delegate for the app. It creates the browser and renderer
+   * `PreMainMessageLoopRun` is an important method
+* `atom_browser_client` is the browser process ie. electron.exe that was initialy launched
+* `atom_renderer_client` you guessed it the renderer
+* 
 
 #TODO's
 * Document the per-user registration including registry keys
 * Remove MFC dependency from activeX
-* Link against the electron lib
-* Set the renderer process to explicitly execute electron_renderer.exe
+* Link against the electron lib (done)
+* Set the renderer process to explicitly execute electron_renderer.exe (done)
+* Figure out why process is crashing
+* Figure out why the observers_ is 0 when it should be 1 after node_bindings is initialized
+```
+void Browser::DidFinishLaunching() {
+  is_ready_ = true;
+  // observers isn't getting set
+  FOR_EACH_OBSERVER(BrowserObserver, observers_, OnFinishLaunching());
+}
+
+```
+after node_binding inits App should be instantiated and register. 
+```
+App::App() {
+  Browser::Get()->AddObserver(this);
+}
+```
+Working hypothesis is that node env is not setup correctly. It references the "browser" process which is a little different in our case.
 
 #Reference Material
 https://books.google.com/books?id=Me9vBAAAQBAJ&pg=PA28&lpg=PA28&dq=browser-subprocess-path&source=bl&ots=N37hCmjNwA&sig=1sbLm6eBlE9QImLXLVKl4nmsYmI&hl=en&sa=X&ved=0ahUKEwiTkcXYlY3KAhVJ-2MKHX8fAZcQ6AEIUDAH#v=onepage&q=browser-subprocess-path&f=false

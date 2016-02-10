@@ -54,7 +54,7 @@ DEFINE_GUID(_CATID_SafeForInitializing, 0x7DD95802, 0x9882, 0x11CF, 0x9F, 0xA9, 
 DEFINE_GUID(_CATID_SafeForScripting,    0x7DD95801, 0x9882, 0x11CF, 0x9F, 0xA9, 0x00,0xAA,0x00,0x6C,0x42,0xC4);
 
 static LONG i_class_ref= 0;
-static HINSTANCE h_instance= 0;
+HINSTANCE h_instance= 0;
 
 HMODULE DllGetModule()
 {

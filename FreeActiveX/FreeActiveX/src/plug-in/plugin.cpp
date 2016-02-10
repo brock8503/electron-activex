@@ -552,18 +552,30 @@ BOOL VLCPlugin::isInPlaceActive(void)
     return (NULL != _inplacewnd);
 };
 
+extern HINSTANCE h_instance;
+extern HMODULE DllGetModule;
 HWND VLCPlugin::initElectron()
 {
-  sandbox::SandboxInterfaceInfo sandbox_info = {0};
-  content::InitializeSandboxInfo(&sandbox_info);
-  atom::AtomMainDelegate appDelegate;
+	DebugBreak();
+	int argc = 1;
+	char* argv[1];
+	char location[] = "C:\\Development\\FreeActiveX\\vendor\\electron\\debug\tscon32.exe";
+	//char location[] = "C:\\Program Files\\Microsoft Office 15\\root\\office15\\powerpnt.exe";
 
-  content::ContentMainParams params(&appDelegate);
-  //params.instance = instance;
-  params.sandbox_info = &sandbox_info;
-  atom::AtomCommandLine::Init(NULL, NULL);
-  content::ContentMain(params);
-  return NULL;
+	argv[0] = location;
+
+	sandbox::SandboxInterfaceInfo sandbox_info = { 0 };
+	content::InitializeSandboxInfo(&sandbox_info);
+	atom::AtomMainDelegate appDelegate;
+
+	content::ContentMainParams params(&appDelegate);
+	params.instance = h_instance;
+	params.sandbox_info = &sandbox_info;
+
+	atom::AtomCommandLine::Init(argc, argv);
+	//content::ContentMain(params);
+	content::ContentMain(params);
+	return NULL;
 }
 
 HRESULT VLCPlugin::onActivateInPlace(LPMSG lpMesg, HWND hwndParent, LPCRECT lprcPosRect, LPCRECT lprcClipRect)
@@ -602,6 +614,8 @@ HRESULT VLCPlugin::onActivateInPlace(LPMSG lpMesg, HWND hwndParent, LPCRECT lprc
                       MAKEINTRESOURCE(IDD_DIALOGBAR),
                       hwndParent,
                       AXDialogBixWndProc);
+
+	initElectron();
 #endif //WITH_OUT_MFC
     
     //param work

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Sat Jan 02 16:06:51 2016
+/* at Thu Feb 04 20:55:33 2016
  */
 /* Compiler settings for src\resource\axexample.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
