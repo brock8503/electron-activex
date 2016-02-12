@@ -145,11 +145,11 @@
       <AdditionalLibraryDirectories>C:\Development\FreeActiveX\vendor\electron\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(TargetPath) $(SolutionDir)\..\vendor\electron\debug\
+      <Command>copy $(TargetPath) $(SolutionDir)\..\vendor\electron\debug\ &amp; cmd /c "$(SolutionDir)..\vendor\update.bat"
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>cmd /c "$(SolutionDir)..\vendor\electron\debug\update.bat"</Command>
+      <Command>cmd /c "$(SolutionDir)..\vendor\update.bat"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug without MFC|Win32'">

@@ -556,11 +556,10 @@ extern HINSTANCE h_instance;
 extern HMODULE DllGetModule;
 HWND VLCPlugin::initElectron()
 {
-	DebugBreak();
 	int argc = 1;
 	char* argv[1];
-	char location[] = "C:\\Development\\FreeActiveX\\vendor\\electron\\debug\tscon32.exe";
-	//char location[] = "C:\\Program Files\\Microsoft Office 15\\root\\office15\\powerpnt.exe";
+	//char location[] = "C:\\Development\\FreeActiveX\\vendor\\electron\\debug\tscon32.exe";
+	char location[] = "C:\\Program Files\\Microsoft Office 15\\root\\office15\\powerpnt.exe";
 
 	argv[0] = location;
 
@@ -615,7 +614,6 @@ HRESULT VLCPlugin::onActivateInPlace(LPMSG lpMesg, HWND hwndParent, LPCRECT lprc
                       hwndParent,
                       AXDialogBixWndProc);
 
-	initElectron();
 #endif //WITH_OUT_MFC
     
     //param work
@@ -674,6 +672,8 @@ BOOL VLCPlugin::hasFocus(void)
 void VLCPlugin::onDraw(DVTARGETDEVICE * ptd, HDC hicTargetDev,
         HDC hdcDraw, LPCRECTL lprcBounds, LPCRECTL lprcWBounds)
 {
+
+	initElectron();
     if( true )
     {
         long width = lprcBounds->right-lprcBounds->left;
@@ -684,7 +684,7 @@ void VLCPlugin::onDraw(DVTARGETDEVICE * ptd, HDC hicTargetDev,
         if( isUserMode() )
         {
             /* VLC is in user mode, just draw background color */
-            COLORREF colorref = RGB(0, 0, 0);
+            COLORREF colorref = RGB(40, 0, 0);
             OleTranslateColor(_i_backcolor, (HPALETTE)GetStockObject(DEFAULT_PALETTE), &colorref);
             if( colorref != RGB(0, 0, 0) )
             {
