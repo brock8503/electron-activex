@@ -124,6 +124,10 @@ STDMETHODIMP VLCDataObject::GetData(LPFORMATETC pFormatEtc, LPSTGMEDIUM pMedium)
     if( NULL == pMedium )
         return E_POINTER;
 
+	char buff[100];
+	sprintf(buff, "Get Data");
+	OutputDebugStringA(buff);
+
     HRESULT result = QueryGetData(pFormatEtc);
     if( SUCCEEDED(result) )
     {
@@ -183,6 +187,10 @@ HRESULT VLCDataObject::getMetaFileData(LPFORMATETC pFormatEtc, LPSTGMEDIUM pMedi
             SetWindowExtEx(hdcMeta, size.cx, size.cy, NULL);
 
             RECTL bounds = { 0L, 0L, size.cx, size.cy };
+
+			char buff[100];
+			sprintf(buff, "Data Object draw %d %d", bounds.top, bounds.left);
+			OutputDebugStringA(buff);
 
             _p_instance->onDraw(pFormatEtc->ptd, hicTargetDev, hdcMeta, &bounds, &wBounds);
             pMetaFilePict->hMF = CloseMetaFile(hdcMeta);

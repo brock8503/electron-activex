@@ -33,6 +33,11 @@ STDMETHODIMP VLCViewObject::Draw(DWORD dwAspect, LONG lindex, PVOID pvAspect,
         DVTARGETDEVICE *ptd, HDC hicTargetDev, HDC hdcDraw, LPCRECTL lprcBounds,
         LPCRECTL lprcWBounds, BOOL(CALLBACK *pfnContinue)(DWORD), DWORD dwContinue)
 {
+
+	char buff[100];
+	sprintf(buff, "View Object draw ");
+	OutputDebugStringA(buff);
+
     if( dwAspect & DVASPECT_CONTENT )
     {
         if( NULL == lprcBounds )
@@ -78,6 +83,10 @@ STDMETHODIMP VLCViewObject::Freeze(DWORD dwAspect, LONG lindex,
 STDMETHODIMP VLCViewObject::GetAdvise(LPDWORD pdwAspect, LPDWORD padvf,
         LPADVISESINK *ppAdviseSink)
 {
+	char buff[100];
+	sprintf(buff, "Get Advice");
+	OutputDebugStringA(buff);
+
     if( NULL != pdwAspect )
         *pdwAspect = _dwAspect;
 
@@ -103,6 +112,10 @@ STDMETHODIMP VLCViewObject::GetColorSet(DWORD dwAspect, LONG lindex,
 STDMETHODIMP VLCViewObject::SetAdvise(DWORD dwAspect, DWORD advf,
         LPADVISESINK pAdvSink)
 {
+	char buff[100];
+	sprintf(buff, "Set Advise");
+	OutputDebugStringA(buff);
+
     if( NULL != pAdvSink )
         pAdvSink->AddRef();
 
@@ -115,7 +128,11 @@ STDMETHODIMP VLCViewObject::SetAdvise(DWORD dwAspect, DWORD advf,
 
     if( (dwAspect & DVASPECT_CONTENT) && (advf & ADVF_PRIMEFIRST) && (NULL != _pAdvSink) )
     {
-        _pAdvSink->OnViewChange(DVASPECT_CONTENT, -1);
+		char buff[100];
+		sprintf(buff, "View changed");
+		OutputDebugStringA(buff);
+
+		_pAdvSink->OnViewChange(DVASPECT_CONTENT, -1);
     }
 
     return S_OK;

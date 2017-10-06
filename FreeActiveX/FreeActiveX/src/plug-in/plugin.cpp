@@ -327,51 +327,125 @@ VLCPlugin::~VLCPlugin()
 
 STDMETHODIMP VLCPlugin::QueryInterface(REFIID riid, void **ppv)
 {
+	BOOL log = false;
+
     if( NULL == ppv )
         return E_INVALIDARG;
-
-    if( IID_IUnknown == riid )
-        *ppv = reinterpret_cast<LPVOID>(this);
-    else if( IID_IOleObject == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcOleObject);
-    else if( IID_IOleControl == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcOleControl);
-    else if( IID_IOleWindow == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcOleInPlaceObject);
-    else if( IID_IOleInPlaceObject == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcOleInPlaceObject);
-    else if( IID_IOleInPlaceActiveObject == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcOleInPlaceActiveObject);
-    else if( IID_IPersist == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcPersistStreamInit);
-    else if( IID_IPersistStreamInit == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcPersistStreamInit);
-    else if( IID_IPersistStorage == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcPersistStorage);
-    else if( IID_IPersistPropertyBag == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcPersistPropertyBag);
-    else if( IID_IProvideClassInfo == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcProvideClassInfo);
-    else if( IID_IProvideClassInfo2 == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcProvideClassInfo);
+	if (IID_IUnknown == riid)
+	{
+		if(log) OutputDebugStringA("IID_IUnknown");
+		*ppv = reinterpret_cast<LPVOID>(this);
+	}
+	else if (IID_IOleObject == riid)
+	{
+		if(log) OutputDebugStringA("IID_IOleObject");
+		*ppv = reinterpret_cast<LPVOID>(vlcOleObject);
+	}
+	else if (IID_IOleControl == riid)
+	{
+		if(log) OutputDebugStringA("IID_IOleControl");
+		*ppv = reinterpret_cast<LPVOID>(vlcOleControl);
+	}
+	else if (IID_IOleWindow == riid)
+	{
+		if(log) OutputDebugStringA("IID_IOleWindow");
+		*ppv = reinterpret_cast<LPVOID>(vlcOleInPlaceObject);
+	}
+	else if (IID_IOleInPlaceObject == riid)
+	{
+		if(log) OutputDebugStringA("IID_IOleInPlaceObject");
+		*ppv = reinterpret_cast<LPVOID>(vlcOleInPlaceObject);
+	}
+	else if (IID_IOleInPlaceActiveObject == riid)
+	{
+		if(log) OutputDebugStringA("IID_IOleInPlaceActiveObject");
+		*ppv = reinterpret_cast<LPVOID>(vlcOleInPlaceActiveObject);
+	}
+	else if (IID_IPersist == riid)
+	{
+		if(log) OutputDebugStringA("IID_IPersist");
+		*ppv = reinterpret_cast<LPVOID>(vlcPersistStreamInit);
+	}
+	else if (IID_IPersistStreamInit == riid)
+	{
+		if(log) OutputDebugStringA("IID_IPersistStreamInit");
+		*ppv = reinterpret_cast<LPVOID>(vlcPersistStreamInit);
+	}
+	else if (IID_IPersistStorage == riid)
+	{
+		if(log) OutputDebugStringA("IID_IPersistStorage");
+		*ppv = reinterpret_cast<LPVOID>(vlcPersistStorage);
+	}
+	else if (IID_IPersistPropertyBag == riid)
+	{
+		if(log) OutputDebugStringA("IID_IPersistPropertyBag");
+		*ppv = reinterpret_cast<LPVOID>(vlcPersistPropertyBag);
+	}
+	else if (IID_IProvideClassInfo == riid)
+	{
+		if(log) OutputDebugStringA("IID_IProvideClassInfo");
+		*ppv = reinterpret_cast<LPVOID>(vlcProvideClassInfo);
+	}
+	else if (IID_IProvideClassInfo2 == riid)
+	{
+		if(log) OutputDebugStringA("IID_IProvideClassInfo2");
+		*ppv = reinterpret_cast<LPVOID>(vlcProvideClassInfo);
+		*ppv = reinterpret_cast<LPVOID>(vlcProvideClassInfo);
+	}
     else if( IID_IConnectionPointContainer == riid )
+	{
+		if(log) OutputDebugStringA("IID_IConnectionPointContainer");
         *ppv = reinterpret_cast<LPVOID>(vlcConnectionPointContainer);
-    else if( IID_IObjectSafety == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcObjectSafety);
-    else if( IID_IDispatch == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcControl2);
-    else if( IID_IAXControl == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcControl2);
-    else if( IID_IViewObject == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcViewObject);
-    else if( IID_IViewObject2 == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcViewObject);
-    else if( IID_IDataObject == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcDataObject);
-    else if( IID_ISupportErrorInfo == riid )
-        *ppv = reinterpret_cast<LPVOID>(vlcSupportErrorInfo);
+	}
+	else if (IID_IObjectSafety == riid)
+	{
+		if(log) OutputDebugStringA("IID_IObjectSafety");
+		*ppv = reinterpret_cast<LPVOID>(vlcObjectSafety);
+	}
+	else if (IID_IDispatch == riid)
+	{
+		if(log) OutputDebugStringA("IID_IDispatch");
+		*ppv = reinterpret_cast<LPVOID>(vlcControl2);
+	}
+	else if (IID_IAXControl == riid)
+	{
+		if(log) OutputDebugStringA("IID_IAXControl");
+		*ppv = reinterpret_cast<LPVOID>(vlcControl2);
+	}
+	else if (IID_IViewObject == riid)
+	{
+		if(log) OutputDebugStringA("IID_IViewObject");
+		*ppv = reinterpret_cast<LPVOID>(vlcViewObject);
+	}
+	else if (IID_IViewObject2 == riid)
+	{
+		if(log) OutputDebugStringA("IID_IViewObject2");
+		*ppv = reinterpret_cast<LPVOID>(vlcViewObject);
+	}
+	else if (IID_IDataObject == riid)
+	{
+		if(log) OutputDebugStringA("IID_IDataObject");
+		*ppv = reinterpret_cast<LPVOID>(vlcDataObject);
+	}
+	else if (IID_ISupportErrorInfo == riid)
+	{
+		if(log) OutputDebugStringA("IID_ISupportErrorInfo");
+		*ppv = reinterpret_cast<LPVOID>(vlcSupportErrorInfo);
+	}
     else
     {
+		if (log)
+		{
+			char buff[200];
+			sprintf(buff, "Not implemented {%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X}", riid.Data1, riid.Data2, riid.Data3, riid.Data4[0], 
+				riid.Data4[1], riid.Data4[2], riid.Data4[3], riid.Data4[4], riid.Data4[5], riid.Data4[6], riid.Data4[7]);
+			OutputDebugStringA(buff);
+
+			OLECHAR* bstrGuid;
+			StringFromCLSID(riid, &bstrGuid);
+			sprintf(buff, "Not implemented {%S}", bstrGuid);
+			OutputDebugStringA(buff);
+		}
         *ppv = NULL;
         return E_NOINTERFACE;
     }
@@ -401,7 +475,7 @@ HRESULT VLCPlugin::onInit(void)
      //test variable init
     _bstr_testString = NULL;
 
-     _i_backcolor = 0;
+     _i_backcolor = RGB(200, 40, 0);
      _bstr_testString = NULL;
      // set default/preferred size (320x240) pixels in HIMETRIC
      HDC hDC = CreateDevDC(NULL);
@@ -579,6 +653,7 @@ HWND VLCPlugin::initElectron()
 
 HRESULT VLCPlugin::onActivateInPlace(LPMSG lpMesg, HWND hwndParent, LPCRECT lprcPosRect, LPCRECT lprcClipRect)
 {
+	OutputDebugStringA("Activate in place");
     RECT clipRect = *lprcClipRect;
 
     /*
@@ -607,7 +682,7 @@ HRESULT VLCPlugin::onActivateInPlace(LPMSG lpMesg, HWND hwndParent, LPCRECT lprc
             NULL
            );
 #else
-    //Diaog box from resource
+    //Diaog box from resourc
 	_inplacewnd = CreateDialog(
                       _p_class->getHInstance(),
                       MAKEINTRESOURCE(IDD_DIALOGBAR),
@@ -635,6 +710,7 @@ HRESULT VLCPlugin::onActivateInPlace(LPMSG lpMesg, HWND hwndParent, LPCRECT lprc
 
 HRESULT VLCPlugin::onInPlaceDeactivate(void)
 {
+	OutputDebugStringA("Deactivate inplace");
     {
         fireOnStopEvent();
     }
@@ -647,6 +723,7 @@ HRESULT VLCPlugin::onInPlaceDeactivate(void)
 
 void VLCPlugin::setBackColor(OLE_COLOR backcolor)
 {
+	OutputDebugStringA("set background color");
     if( _i_backcolor != backcolor )
     {
         _i_backcolor = backcolor;
@@ -660,20 +737,23 @@ void VLCPlugin::setBackColor(OLE_COLOR backcolor)
 
 void VLCPlugin::setFocus(BOOL fFocus)
 {
+	OutputDebugStringA("set focus");
     if( fFocus )
         SetActiveWindow(_inplacewnd);
 };
 
 BOOL VLCPlugin::hasFocus(void)
 {
+	OutputDebugStringA("has focus");
     return GetActiveWindow() == _inplacewnd;
 };
 
 void VLCPlugin::onDraw(DVTARGETDEVICE * ptd, HDC hicTargetDev,
         HDC hdcDraw, LPCRECTL lprcBounds, LPCRECTL lprcWBounds)
 {
-
-	initElectron();
+	char buff[100];
+	sprintf(buff, "Draw");
+	OutputDebugStringA(buff);
     if( true )
     {
         long width = lprcBounds->right-lprcBounds->left;
@@ -684,19 +764,21 @@ void VLCPlugin::onDraw(DVTARGETDEVICE * ptd, HDC hicTargetDev,
         if( isUserMode() )
         {
             /* VLC is in user mode, just draw background color */
-            COLORREF colorref = RGB(40, 0, 0);
+            COLORREF colorref = RGB(250, 50, 0);
             OleTranslateColor(_i_backcolor, (HPALETTE)GetStockObject(DEFAULT_PALETTE), &colorref);
-            if( colorref != RGB(0, 0, 0) )
+            if( colorref != RGB(250, 50, 0) )
             {
                 /* custom background */
                 HBRUSH colorbrush = CreateSolidBrush(colorref);
                 FillRect(hdcDraw, &bounds, colorbrush);
                 DeleteObject((HANDLE)colorbrush);
+				
+				OutputDebugStringA("Paint background");
             }
             else
             {
                 /* black background */
-                FillRect(hdcDraw, &bounds, (HBRUSH)GetStockObject(BLACK_BRUSH));
+                //FillRect(hdcDraw, &bounds, (HBRUSH)GetStockObject(BLACK_BRUSH));
             }
         }
         else
@@ -761,6 +843,7 @@ void VLCPlugin::onPaint(HDC hdc, const RECT &bounds, const RECT &clipRect)
 {
     if( true )
     {
+		OutputDebugStringA("Paint the object");
         /* if VLC is in design mode, draw control logo */
         HDC hdcDraw = CreateCompatibleDC(hdc);
         if( NULL != hdcDraw )
@@ -803,6 +886,8 @@ void VLCPlugin::onPaint(HDC hdc, const RECT &bounds, const RECT &clipRect)
 
 void VLCPlugin::onPositionChange(LPCRECT lprcPosRect, LPCRECT lprcClipRect)
 {
+
+	OutputDebugStringA("Position Changed");
     RECT clipRect = *lprcClipRect;
 
     /*

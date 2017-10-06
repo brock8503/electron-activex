@@ -61,6 +61,9 @@ STDMETHODIMP VLCOleObject::Close(DWORD dwSaveOption)
 STDMETHODIMP VLCOleObject::DoVerb(LONG iVerb, LPMSG lpMsg, LPOLECLIENTSITE pActiveSite,
                                     LONG lIndex, HWND hwndParent, LPCRECT lprcPosRect)
 {
+	char buff[100];
+	sprintf(buff, "DoVerb %d", (int)iVerb);
+	OutputDebugStringA(buff);
     switch( iVerb )
     {
         case OLEIVERB_PRIMARY:
