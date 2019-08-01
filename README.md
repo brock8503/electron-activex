@@ -1,5 +1,10 @@
-Test tool
+# Experiment
+Get Electron running as an ActiveX control 
+
+## Test tool
 Download tstcon32 to test ActiveX http://www.microsoft.com/en-us/download/confirmation.aspx?id=16351
+
+## Build setup
 To build it you'll need http://www.microsoft.com/en-us/download/confirmation.aspx?id=40770 installed in vs2013
 Update WINVER to #define WINVER 0x0501		// Change this to 0x0500 to target Windows 98 and Windows 2000.
 Then project properties -> configurations properties -> C/C++ -> treats warning as error -> No (/WX-)
@@ -12,36 +17,38 @@ set /MD flag
 OLEView
 https://msdn.microsoft.com/en-us/library/d0kh9f4c.aspx
  "C:\Program Files (x86)\Windows Kits\8.0\bin\x86\oleview.exe"
+ 
+## Setup
 
-#Register the control with the OS
+1. Register the control with the OS
 Use Regsvr32 https://technet.microsoft.com/en-us/library/bb490985.aspx
 * Register dll
 $ regsvr32.exe ActiveX.dl
 * UnRegister dll
 $ regsvr32.exe /u ActiveX.dll
 
-#Tests control
+2. Test control
 Verify registration with OLEView
 orTest view with tstcon32
 
-#Build
-Only *debug* is building currently
+## Build
+Only *debug* is building currently. Select run
 
-#Clean build
+## Clean build
 ./vendor/depot_tools/ninja -t clean
 
 
-#Debug
+## Debug
 Using win32 `DebugBreak();` during post build you can break into the `DllRegisterServer`
 
-#What I know
+## What I know
 * `atom_browser_main_parts.cc` is the main delegate for the app. It creates the browser and renderer
    * `PreMainMessageLoopRun` is an important method
 * `atom_browser_client` is the browser process ie. electron.exe that was initialy launched
 * `atom_renderer_client` you guessed it the renderer
 * 
 
-#TODO's
+## TODO's
 * Document the per-user registration including registry keys
 * Remove MFC dependency from activeX
 * Link against the electron lib (done)
